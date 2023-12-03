@@ -5,7 +5,7 @@ option csharp_namespace = "GrpcApi";
 service WorkerIntegration {
 	rpc GetWorkersStream (GetWorkersStreamRequest) returns (stream WorkerMessage);
 	rpc GetWorker(GetWorkerRequest) returns (WorkerMessage);
-	rpc RemoveWorkers(RemoveWorkersRequest) returns (CrudOperationResponse);
+	rpc RemoveWorkers(RemoveWorkersRequest) returns (stream CrudOperationResponse);
 	rpc AddWorkers(stream AddWorkersRequest) returns (stream CrudOperationResponse);
 	rpc UpdateWorkers(stream UpdateWorkersRequest) returns (stream CrudOperationResponse);
 }
