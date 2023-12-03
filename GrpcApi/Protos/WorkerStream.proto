@@ -1,41 +1,70 @@
 syntax = "proto3";
 
-option csharp_namespace = "Utis.Minex.WrokerIntegration";
+option csharp_namespace = "GrpcApi";
 
 service WorkerIntegration {
-	rpc GetWorkerStream (EmptyMessage) returns (stream WorkerAction);
+	rpc GetWorkersStream (GetWorkersStreamRequest) returns (stream WorkerMessage);
+	rpc GetWorker(GetWorkerRequest) returns (WorkerMessage);
+	rpc RemoveWorkers(RemoveWorkersRequest) returns (CrudOperationResponse);
+	rpc AddWorkers(stream AddWorkersRequest) returns (stream CrudOperationResponse);
+	rpc UpdateWorkers(stream UpdateWorkersRequest) returns (stream CrudOperationResponse);
 }
 
-message EmptyMessage
+message GetWorkersStreamRequest
 {
+	//for future use
 }
 
-message WorkerAction
+message GetWorkerRequest
 {
-	WorkerMessage worker = 1;
-	Action actionType = 2;
+	int64 Id = 1;
+}
+
+message RemoveWorkersRequest
+{
+	repeated int64 Id = 1;
+}
+
+message AddWorkersRequest
+{
+	WorkerMessage WorkerInfo = 1;
+	bool GenerateIdIfExists = 2;
+}
+
+message UpdateWorkersRequest
+{
+	WorkerMessage OldWorkerInfo = 1;
+	WorkerMessage NewWorkerInfo = 2;
+	bool ForseUpdate = 3;
 }
 
 message WorkerMessage
 {
-	string LastName = 1;
-	string FirstName = 2;
-	string MiddleName = 3;
-	int64 Birthday = 4;
-	Sex Sex = 5;
-	bool HaveChildren = 6;
+	int64 Id = 1;
+	string LastName = 2;
+	string FirstName = 3;
+	string MiddleName = 4;
+	int64 Birthday = 5;
+	Sex Sex = 6;
+	bool HasChildren = 7;
 }
 
-//Пол
+
 enum Sex {
-	Default = 0;
-	Male = 1;
-	Female = 2;
+	Male = 0;
+	Female = 1;
 }
 
-enum Action {
-	Default = 0;
-	Create = 1;
-	Update = 2;
-	Delete = 3;
+enum CrudStatusCode {
+	Success = 0;
+	Failed = 1;
+	AlreadyExists = 2;
+	UpdatedByOther = 3;
+}
+
+message CrudOperationResponse
+{
+	int64 Id = 1;
+	CrudStatusCode Result = 2;
+	string Message = 3;
 }
