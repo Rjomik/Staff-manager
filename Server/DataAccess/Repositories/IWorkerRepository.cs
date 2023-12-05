@@ -9,7 +9,10 @@ using GrpcApi;
 
 namespace Server
 {
-    public interface IDbContext
+    /// <summary>
+    /// For further mocking
+    /// </summary>
+    public interface IWorkerRepository
     {
         Task AddWorkers(IAsyncStreamReader<AddWorkersRequest> requestStream, IServerStreamWriter<CrudOperationResponse> responseStream);
         Task<WorkerMessage> GetWorker(long id);

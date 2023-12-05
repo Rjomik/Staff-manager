@@ -38,6 +38,9 @@
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr3.Runtime.3.5.1\lib\net40-client\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac, Version=7.1.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.7.1.0\lib\netstandard2.0\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="FluentNHibernate, Version=3.3.0.0, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
       <HintPath>..\packages\FluentNHibernate.3.3.0\lib\net461\FluentNHibernate.dll</HintPath>
     </Reference>
@@ -124,10 +127,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\DbContext\DbContext.cs" />
     <Compile Include="DataAccess\Extensions\PersistentEnumType.cs" />
-    <Compile Include="DataAccess\IDbContext.cs" />
     <Compile Include="DataAccess\Mapping\WorkerMap.cs" />
     <Compile Include="DataAccess\Model\Worker.cs" />
+    <Compile Include="DataAccess\Repositories\IWorkerRepository.cs" />
+    <Compile Include="DataAccess\Repositories\WorkerRepository.cs" />
     <Compile Include="GrpcServiceImpl.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
