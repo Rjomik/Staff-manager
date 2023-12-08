@@ -49,8 +49,8 @@ namespace Server.DataAccess
             return LastName.Equals(other.LastName) &&
                  FirstName.Equals(other.FirstName) &&
                    MiddleName.Equals(other.MiddleName) &&
-                     Birthday.Equals(other.Birthday) &&
-                       Sex.Equals(other.Sex) &&
+                     Birthday.Ticks.Equals(other.Birthday) &&
+                       ((int)Sex).Equals((int)other.Sex) &&
                          HasChildren.Equals(other.HasChildren);
         }
 
