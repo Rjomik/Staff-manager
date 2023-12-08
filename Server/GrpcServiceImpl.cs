@@ -22,30 +22,29 @@ namespace Server
             this.repository = repository;
         }
 
-        public override async Task AddWorkers(IAsyncStreamReader<AddWorkersRequest> requestStream, IServerStreamWriter<CrudOperationResponse> responseStream, ServerCallContext context)
+        public override Task AddWorkers(IAsyncStreamReader<WorkerMessage> requestStream, IServerStreamWriter<CrudOperationResponse> responseStream, ServerCallContext context)
         {
-            //todo validation of fields
-            await repository.AddWorkers(requestStream, responseStream);
+            return repository.AddWorkers(requestStream, responseStream, context);
         }
 
-        public override async Task<WorkerMessage> GetWorker(GetWorkerRequest request, ServerCallContext context)
+        public override Task<WorkerMessage> GetWorker(GetWorkerRequest request, ServerCallContext context)
         {
-            return await repository.GetWorker(request.Id);
+            return repository.GetWorker(request.Id);
         }
 
-        public override async Task GetWorkersStream(GetWorkersStreamRequest request, IServerStreamWriter<WorkerMessage> responseStream, ServerCallContext context)
+        public override Task GetWorkersStream(GetWorkersStreamRequest request, IServerStreamWriter<WorkerMessage> responseStream, ServerCallContext context)
         {
-            await repository.GetWorkersStream(responseStream);
+            return repository.GetWorkersStream(responseStream, context);
         }
 
-        public override async Task RemoveWorkers(RemoveWorkersRequest request, IServerStreamWriter<CrudOperationResponse> responseStream, ServerCallContext context)
+        public override Task<CrudOperationResponse> RemoveWorkers(RemoveWorkersRequest request, ServerCallContext context)
         {
-            await repository.RemoveWorkers(request.Id, responseStream);
+            return repository.RemoveWorkers(request.Ids, context);
         }
 
         public override async Task UpdateWorkers(IAsyncStreamReader<UpdateWorkersRequest> requestStream, IServerStreamWriter<CrudOperationResponse> responseStream, ServerCallContext context)
         {
-            await repository.UpdateWorkers(requestStream, responseStream);
+            await repository.UpdateWorkers(requestStream, responseStream, context);
         }
     }
 }

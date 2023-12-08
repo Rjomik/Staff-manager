@@ -14,10 +14,10 @@ namespace Server
     /// </summary>
     public interface IWorkerRepository
     {
-        Task AddWorkers(IAsyncStreamReader<AddWorkersRequest> requestStream, IServerStreamWriter<CrudOperationResponse> responseStream);
+        Task AddWorkers(IAsyncStreamReader<WorkerMessage> requestStream, IServerStreamWriter<CrudOperationResponse> responseStream, ServerCallContext context);
         Task<WorkerMessage> GetWorker(long id);
-        Task GetWorkersStream(IServerStreamWriter<WorkerMessage> responseStream);
-        Task RemoveWorkers(RepeatedField<long> id, IServerStreamWriter<CrudOperationResponse> responseStream);
-        Task UpdateWorkers(IAsyncStreamReader<UpdateWorkersRequest> requestStream, IServerStreamWriter<CrudOperationResponse> responseStream);
+        Task GetWorkersStream(IServerStreamWriter<WorkerMessage> responseStream, ServerCallContext context);
+        Task<CrudOperationResponse> RemoveWorkers(RepeatedField<long> ids, ServerCallContext context);
+        Task UpdateWorkers(IAsyncStreamReader<UpdateWorkersRequest> requestStream, IServerStreamWriter<CrudOperationResponse> responseStream, ServerCallContext context);
     }
 }

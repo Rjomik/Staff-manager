@@ -15,7 +15,7 @@ namespace Server.DataAccess
         ISessionFactory sessionFactory;
         public DbContext()
         {
-            var connectionString = "host=ep-sweet-butterfly-47683425.us-east-2.aws.neon.tech; database=StaffDb; search path=StaffDb; port=5432; user id=polyteh.diavol; password=***;";
+            var connectionString = "host=ep-sweet-butterfly-47683425.us-east-2.aws.neon.tech; database=StaffDb; search path=StaffDb; port=5432; user id=polyteh.diavol; password=Z2zRPrtAnK7G;";
 
             var configuration = Fluently.Configure()
                .Database(PostgreSQLConfiguration.Standard.ConnectionString(connectionString))

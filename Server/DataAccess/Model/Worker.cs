@@ -43,6 +43,26 @@ namespace Server.DataAccess
                 HasChildren = HasChildren
             };
         }
+
+        public virtual bool Equals(WorkerMessage other)
+        {
+            return LastName.Equals(other.LastName) &&
+                 FirstName.Equals(other.FirstName) &&
+                   MiddleName.Equals(other.MiddleName) &&
+                     Birthday.Equals(other.Birthday) &&
+                       Sex.Equals(other.Sex) &&
+                         HasChildren.Equals(other.HasChildren);
+        }
+
+        public virtual void CopyProperties(WorkerMessage source)
+        {
+            LastName = source.LastName;
+            FirstName = source.FirstName;
+            MiddleName = source.MiddleName;
+            Birthday = new DateTime( source.Birthday, DateTimeKind.Utc);
+            Sex = (Sex)(int)source.Sex;
+            HasChildren = source.HasChildren;
+        }
     }
     public enum Sex { Male = 0, Female = 1 }
 }

@@ -47,9 +47,6 @@ namespace Server
                 Console.ReadLine();
                 throw;
             }
-
-         
-           
         }
     }
 }

@@ -5,8 +5,8 @@ option csharp_namespace = "GrpcApi";
 service WorkerIntegration {
 	rpc GetWorkersStream (GetWorkersStreamRequest) returns (stream WorkerMessage);
 	rpc GetWorker(GetWorkerRequest) returns (WorkerMessage);
-	rpc RemoveWorkers(RemoveWorkersRequest) returns (stream CrudOperationResponse);
-	rpc AddWorkers(stream AddWorkersRequest) returns (stream CrudOperationResponse);
+	rpc RemoveWorkers(RemoveWorkersRequest) returns (CrudOperationResponse);
+	rpc AddWorkers(stream WorkerMessage) returns (stream CrudOperationResponse);
 	rpc UpdateWorkers(stream UpdateWorkersRequest) returns (stream CrudOperationResponse);
 }
 
@@ -22,20 +22,13 @@ message GetWorkerRequest
 
 message RemoveWorkersRequest
 {
-	repeated int64 Id = 1;
-}
-
-message AddWorkersRequest
-{
-	WorkerMessage WorkerInfo = 1;
-	bool GenerateIdIfExists = 2;
+	repeated int64 Ids = 1;
 }
 
 message UpdateWorkersRequest
 {
 	WorkerMessage OldWorkerInfo = 1;
 	WorkerMessage NewWorkerInfo = 2;
-	bool ForseUpdate = 3;
 }
 
 message WorkerMessage
@@ -60,11 +53,11 @@ enum CrudStatusCode {
 	Failed = 1;
 	AlreadyExists = 2;
 	UpdatedByOther = 3;
+	NotFound = 4;
 }
 
 message CrudOperationResponse
 {
-	int64 Id = 1;
 	CrudStatusCode Result = 2;
 	string Message = 3;
 }
